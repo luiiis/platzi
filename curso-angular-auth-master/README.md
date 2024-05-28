@@ -36,3 +36,6 @@ npm install @angular-devkit/build-angular --force
 
 ##levantar aplicacion
 http://localhost:4200/
+
+## api para conectar la aplicacion
+https://fake-trello-api.herokuapp.com/docs
