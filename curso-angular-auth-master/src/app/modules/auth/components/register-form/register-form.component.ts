@@ -20,7 +20,7 @@ export class RegisterFormComponent {
   form = this.formBuilder.nonNullable.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.minLength(6), Validators.required]],
+    password: ['', [Validators.minLength(8), Validators.required]],
     confirmPassword: ['', [Validators.required]],
   }, {
     validators: [ CustomValidators.MatchValidator('password', 'confirmPassword') ]
@@ -42,7 +42,17 @@ export class RegisterFormComponent {
     if (this.form.valid) {
       this.status = 'loading';
       const { name, email, password } = this.form.getRawValue();
-      console.log(name, email, password);
+      this.authService.register(name,email,password)
+      .subscribe({
+        next: ()=>{
+          this.statusUser = 'success';          
+          this.router.navigate(['/login']);            
+        },
+        error: (error) =>{
+          this.statusUser = 'failed';
+          console.log(error);
+        }
+      });
     } else {
       this.form.markAllAsTouched();
     }
