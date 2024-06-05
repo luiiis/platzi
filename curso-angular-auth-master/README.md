@@ -39,3 +39,7 @@ http://localhost:4200/
 
 ## api para conectar la aplicacion
 https://fake-trello-api.herokuapp.com/docs
+
+##comandos
+ng g g guards/auth --skip-tests------crear un guardian
+ng g s services/token --skip-tests--------crear un servicio
