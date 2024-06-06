@@ -13,7 +13,7 @@ export class TokenService {
     setCookie('token-trello', token, {expires: 365, path: '/'});
   }
 
-  getTken(){
+  getToken(){
    // const token = localStorage.getItem('token');
     const token = getCookie('token-trello');
     return token;
