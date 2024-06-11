@@ -4,6 +4,9 @@ import { environment } from '@environments/environment'
 import { switchMap,tap } from 'rxjs/operators';
 import { TokenService } from '@services/token.service';
 import { ResponseLogin }from '@models/auth.model';
+import { User }from '@models/user.model';
+import { checkToken } from '@interceptors/token.interceptor';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +14,16 @@ import { ResponseLogin }from '@models/auth.model';
 export class AuthService {
 
   apiUrl = environment.API_URL;
+  user$ = new BehaviorSubject<User | null>(null);
 
   constructor(
     private http:HttpClient,
     private tokenService: TokenService
   ) { }
+
+  getDataUser(){
+    return this.user$.getValue();
+  }
 
   login(email: string,password: string){
    return this.http.post<ResponseLogin>(`${this.apiUrl}/api/v1/auth/login`,{
@@ -64,5 +72,14 @@ export class AuthService {
 
  logout(){
   this.tokenService.removeToken();
+ }
+
+ getPrfile(){
+  return this.http.get<User>(`${this.apiUrl}/api/v1/auth/profile`,{context:checkToken()})
+  .pipe(
+    tap(user=>{
+      this.user$.next(user);
+    })
+  );
  }
 }

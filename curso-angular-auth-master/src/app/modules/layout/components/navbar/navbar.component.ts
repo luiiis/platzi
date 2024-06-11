@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import {
   faBell,
   faInfoCircle,
@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '@services/auth.service';
 import { Route, Router } from '@angular/router';
+import { User } from '@models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -21,12 +22,15 @@ export class NavbarComponent {
   isOpenOverlayAvatar = false;
   isOpenOverlayBoards = false;
 
+
+  user$ = this.authService.user$;
+
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
-  logout(){
+   logout(){
     this.authService.logout();
     this.router.navigate(['/login']);
   }
