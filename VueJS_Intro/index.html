@@ -7,15 +7,18 @@
 </head>
 <body>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <div id="app"></div>
+    <div id="app">
+        
+    </div>
     <script>
         Vue.createApp({
           data(){
             return {
-              text:"Hola vue"
+                attr:"src",
+                img: "https://www.google.com/imgres?q=imagen%20url&imgurl=https%3A%2F%2Faprendelibvrefiles.blob.core.windows.net%2Faprendelibvre-container%2Fcourse%2Fcreacion_de_sitios_web%2Fimage%2Fimgscursoweb-01_xl.png&imgrefurl=https%3A%2F%2Fedu.gcfglobal.org%2Fes%2Fcreacion-de-sitios-web%2Fque-es-una-url%2F1%2F&docid=tGuIOWXnJrB-BM&tbnid=h5mT5FVLLsZu8M&vet=12ahUKEwjGj-WDiumGAxUCM0QIHSBQBd4QM3oECGUQAA..i&w=1920&h=1120&hcb=2&ved=2ahUKEwjGj-WDiumGAxUCM0QIHSBQBd4QM3oECGUQAA"
             };
           },
-          template:`<div v-once v-text="text"></div>`
+          template:`<img v-bind:[attr]="img" />`
         }).mount("#app");
     </script>
 </body>
