@@ -27,8 +27,13 @@
                 }
             }
           },
+          computed: {
+            label(){
+             return this.open? "Cerrar": "Abrir";
+            }
+          },
           template:`<div>{{text}}</div>
-                    <button  @click="open = !open">{{open? "Cerrar": "Abrir"}}</button>
+                    <button  @click="open = !open">{{label}}</button>
           `
         }).mount("#app");
     </script>
