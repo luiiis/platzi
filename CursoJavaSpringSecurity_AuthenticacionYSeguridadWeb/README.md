@@ -9,3 +9,9 @@ https://spring.io/projects/spring-security
 inteligent
 jdk 17
 glande
+mysql
+
+##sprin segurity
+
+https://owasp.org/www-community/attacks/csrf
+https://docs.spring.io/spring-security/reference/features/exploits/csrf.html#csrf-when
