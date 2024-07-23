@@ -15,3 +15,6 @@ mysql
 
 https://owasp.org/www-community/attacks/csrf
 https://docs.spring.io/spring-security/reference/features/exploits/csrf.html#csrf-when
+
+##password para usuarios
+https://bcrypt.online/
