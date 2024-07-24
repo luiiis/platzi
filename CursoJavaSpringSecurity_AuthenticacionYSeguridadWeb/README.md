@@ -18,3 +18,7 @@ https://docs.spring.io/spring-security/reference/features/exploits/csrf.html#csr
 
 ##password para usuarios
 https://bcrypt.online/
+
+##JWT
+https://mvnrepository.com/artifact/com.auth0/java-jwt/4.3.0
+https://jwt.io/
