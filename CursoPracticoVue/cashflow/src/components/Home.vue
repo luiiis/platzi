@@ -1,28 +1,31 @@
 <template>
-    <Layout>
-      <template #header>
-        <Header></Header>
-      </template>
-      <template #resume>
-        <Resume
-          :total-label="'Ahorro total'"
-          :label="label"
-          :total-amount="1000000"
-          :amount="amount"
-        >
-          <template #graphic>
-            <Graphic :amounts="amounts" />
-          </template>
-          <template #action>
-            <Action />
-          </template>
-        </Resume>
-      </template>
-      <template #movements>
-        <Movements :movements="movements" />
-      </template>
-    </Layout>
-  </template>
+  <Layout>
+    <template #header>
+      <Header></Header>
+    </template>
+    <template #resume>
+      <Resume
+        :total-label="'Ahorro total'"
+        :label="label"
+        :total-amount="1000000"
+        :amount="amount"
+      >
+        <template #graphic>
+          <Graphic :amounts="amounts" />
+        </template>
+        <template #action>
+          <Action @create="create" />
+        </template>
+      </Resume>
+    </template>
+    <template #movements>
+      <Movements
+        :movements="movements"
+        @remove="remove"
+      />
+    </template>
+  </Layout>
+</template>
   
   <script>
   import Layout from "./Layout.vue";
@@ -139,5 +142,14 @@
         });
       }
     },
+    methods: {
+    create(movement) {
+      this.movements.push(movement);
+    },
+    remove(id) {
+      const index = this.movements.findIndex(m => m.id === id);
+      this.movements.splice(index, 1);
+    }
+  }
   };
   </script>
