@@ -45,3 +45,6 @@ ng g g guards/auth --skip-tests------crear un guardian
 ng g s services/token --skip-tests--------crear un servicio
 ##comando para guardar una cookie
 npm i typescript-cookie
+##instalar jwt-decode
+https://www.npmjs.com/package/jwt-decode
+npm install jwt-decode
