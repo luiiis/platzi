@@ -10,7 +10,7 @@ export class TokenService {
 
   saveToken(token: string){
     //localStorage.setItem('token',token);
-    setCookie('token-trello', token, {expires: 365, path: '/'});
+    setCookie('token-trello', token, {expires: 0.15, path: '/'});
   }
 
   getToken(){
