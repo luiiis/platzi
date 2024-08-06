@@ -25,6 +25,37 @@ export class TokenService {
     removeCookie('token-trello');
   }
 
+  saveRefreshToken(token: string){
+    //localStorage.setItem('token',token);
+    setCookie('refresh-token-trello', token, {expires: 0.15, path: '/'});
+  }
+
+  getRefreshToken(){
+   // const token = localStorage.getItem('token');
+    const token = getCookie('refresh-token-trello');
+    return token;
+  }
+
+  removeRefreshToken(){
+    //localStorage.removeItem('token');
+    removeCookie('refresh-token-trello');
+  }
+
+  isValidRefreshToken(){
+    const token = this.getRefreshToken();
+    if(!token){
+      return false;
+    }
+    const decodeToken = jwtDecode<JwtPayload>(token);
+    if(decodeToken && decodeToken?.exp){
+      const tokenDate = new Date(0);
+      tokenDate.setUTCSeconds(decodeToken.exp);
+      const today = new Date();
+      return tokenDate.getTime() >today.getTime();
+    }
+    return false;
+  }
+
   isValidToken(){
     const token = this.getToken();
     if(!token){
@@ -39,4 +70,5 @@ export class TokenService {
     }
     return false;
   }
+
 }
