@@ -35,7 +35,7 @@ public class OrderEntity {
 
     @Column(name = "additional_notes", length = 200)
     private String additionalNotes;
-/*
+
     @OneToOne
     @JoinColumn(name = "id_customer", referencedColumnName = "id_customer", insertable = false, updatable = false)
     private CustomerEntity customer;
@@ -43,5 +43,5 @@ public class OrderEntity {
     @OneToMany(mappedBy = "order")
     private List<OrderItemEntity> items;
 
- */
+
 }
