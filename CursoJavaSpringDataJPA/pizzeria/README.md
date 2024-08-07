@@ -12,3 +12,5 @@ mysql
 
  ##mysql
 https://www.mysql.com/products/workbench/
+##spring data JPA
+https://docs.spring.io/spring-data/jpa/reference/#repositories
