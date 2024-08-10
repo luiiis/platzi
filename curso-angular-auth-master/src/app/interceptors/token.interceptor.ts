@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TokenService} from '@services/token.service';
+import { AuthService} from '@services/auth.service';
+
 import {
   HttpRequest,
   HttpHandler,
@@ -8,7 +10,7 @@ import {
   HttpContextToken,
   HttpContext,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 const CHECK_TOKEN = new HttpContextToken<boolean>(()=>false);
 
@@ -20,12 +22,19 @@ export function checkToken(){
 export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
-    private tokenService:TokenService
+    private tokenService:TokenService,
+    private authService:AuthService
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if(request.context.get(CHECK_TOKEN)){
-      return this.addToken(request,next);
+      const isValidToken = this.tokenService.isValidToken();
+      if(isValidToken){
+        return this.addToken(request,next);
+      }else{
+        return this.upadateAccessTokenRefreshToken(request,next);
+      }
+     
     }
     return next.handle(request);
   }
@@ -37,6 +46,18 @@ export class TokenInterceptor implements HttpInterceptor {
       headers: request.headers.set('Authorization',`Bearer ${accessToken}`)
     });
     return next.handle(authRequest);
+    }
+    return next.handle(request);
+  }
+
+  private upadateAccessTokenRefreshToken(request: HttpRequest<unknown>,next:HttpHandler){
+    const refreshToken = this.tokenService.getRefreshToken();
+    const isValidRefreshToken = this.tokenService.isValidRefreshToken();
+    if(refreshToken && isValidRefreshToken){
+      return this.authService.refreshToken(refreshToken)
+      .pipe(
+        switchMap(()=>this.addToken(request,next)),
+      )
     }
     return next.handle(request);
   }
